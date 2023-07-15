@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import Modal from "../components/Modal";
+// import Modal from "../components/Modal";
 const Images = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageSize, setSelectedImageSize] = useState(null);
@@ -120,11 +120,11 @@ const Images = () => {
       <Link href={"/"} className="text-red-800 text-2xl font-semibold p-1">
         Back
       </Link>
-      <Modal
+      {/* <Modal
         isOpen={isModalOpen}
         onRequestClose={handleModalClose}
         onSubmit={handleModalSubmit}
-      />
+      /> */}
     </>
   );
 };

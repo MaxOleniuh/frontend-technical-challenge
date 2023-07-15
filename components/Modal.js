@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Modal = ({ isOpen, onRequestClose, onSubmit }) => {
+const Modal = () => {
   const [predictionTitle, setPredictionTitle] = useState("");
   const [predictionDescription, setPredictionDescription] = useState("");
 
@@ -11,7 +11,7 @@ const Modal = ({ isOpen, onRequestClose, onSubmit }) => {
   };
 
   return (
-    <div className={`modal ${isOpen ? "modal-open" : ""}`}>
+    <div className="">
       <div className="modal-overlay" onClick={onRequestClose}></div>
       <div className="modal-content">
         <h2>Prediction Details</h2>
@@ -31,50 +31,5 @@ const Modal = ({ isOpen, onRequestClose, onSubmit }) => {
     </div>
   );
 };
-
-// function ImageUploadForm() {
-//   const [selectedImage, setSelectedImage] = useState(null);
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-
-//   const handlePredictButtonClick = () => {
-//     setIsModalOpen(true);
-//   };
-
-//   const handleModalSubmit = (title, description) => {
-//     console.log("Title:", title);
-//     console.log("Description:", description);
-//     setIsModalOpen(false);
-//   };
-
-//   const handleModalClose = () => {
-//     setIsModalOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <form>
-//         <input
-//           type="file"
-//           id="imageUpload"
-//           accept="image/*"
-//           onChange={handleImageUpload}
-//         />
-//       </form>
-//       <button
-//         type="button"
-//         className="bg-blue-600 p-2 text-white"
-//         onClick={handlePredictButtonClick}
-//       >
-//         PREDICT
-//       </button>
-
-//       <Modal
-//         isOpen={isModalOpen}
-//         onRequestClose={handleModalClose}
-//         onSubmit={handleModalSubmit}
-//       />
-//     </div>
-//   );
-// }
 
 export default Modal;
