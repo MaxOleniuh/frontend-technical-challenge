@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// import Modal from "../components/Modal";
+import Modal from "../components/Modal";
 const Images = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageSize, setSelectedImageSize] = useState(null);
   const [uploadTime, setuploadTime] = useState(null);
   const [selectedImageMetadata, setSelectedImageMetadata] = useState(null);
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const dateObj = new Date(uploadTime);
 
@@ -61,7 +62,6 @@ const Images = () => {
       };
       setSelectedImageMetadata(metadata);
       localStorage.setItem("selectedImageMetadata", JSON.stringify(metadata));
-      console.log("Stored image:", file);
       setUploadedImages((prevImages) => [...prevImages, metadata]);
     } else {
       setSelectedImage(null);
@@ -70,9 +70,13 @@ const Images = () => {
     }
   };
 
+  const handlePredictClick = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <>
-      <form className="flex-col gap-3">
+      <form className="flex-col gap-3 mb-4">
         <input
           type="file"
           id="imageUpload"
@@ -82,18 +86,28 @@ const Images = () => {
         />
         <table className="min-w-full bg-white border border-gray-300">
           <thead>
-            <tr>
-              <th className="px-4 py-2 bg-gray-200 border-b">Image Filename</th>
-              <th className="px-4 py-2 bg-gray-200 border-b">Size</th>
-              <th className="px-4 py-2 bg-gray-200 border-b">Upload Time</th>
-              <th className="px-4 py-2 bg-gray-200 border-b">Prediction</th>
+            <tr className="text-center">
+              <th className="px-4 py-2 bg-gray-200 border-b font-semibold">
+                Image Filename
+              </th>
+              <th className="px-4 py-2 bg-gray-200 border-b font-semibold">
+                Size
+              </th>
+              <th className="px-4 py-2 bg-gray-200 border-b font-semibold">
+                Upload Time
+              </th>
+              <th className="px-4 py-2 bg-gray-200 border-b font-semibold">
+                Prediction
+              </th>
             </tr>
           </thead>
           <tbody>
             {uploadedImages.map((image, index) => (
               <tr
                 key={index}
-                className={index % 2 === 0 ? "bg-gray-100" : ""}
+                className={
+                  index % 2 === 0 ? "bg-gray-100 text-center" : "text-center"
+                }
                 style={{
                   animation:
                     selectedImage && index === uploadedImages.length - 1
@@ -102,10 +116,16 @@ const Images = () => {
                 }}
               >
                 <td className="px-4 py-2 border-b">{image.name}</td>
-                <td className="px-4 py-2 border-b">{image.size}</td>
+                <td className="px-4 py-2 border-b">
+                  {formatFileSize(image.size)}
+                </td>
                 <td className="px-4 py-2 border-b">{formattedDateTime}</td>
                 <td className="px-4 py-2 border-b">
-                  <button type="button" className="bg-blue-600 p-2 text-white">
+                  <button
+                    onClick={handlePredictClick}
+                    type="button"
+                    className="bg-blue-600 text-white px-4 py-2 rounded-lg mr-2"
+                  >
                     PREDICT
                   </button>
                 </td>
@@ -113,18 +133,11 @@ const Images = () => {
             ))}
           </tbody>
         </table>
-        <button type="submit" className="bg-blue-600 p-2 text-white">
-          Upload
-        </button>
       </form>
       <Link href={"/"} className="text-red-800 text-2xl font-semibold p-1">
         Back
       </Link>
-      {/* <Modal
-        isOpen={isModalOpen}
-        onRequestClose={handleModalClose}
-        onSubmit={handleModalSubmit}
-      /> */}
+      {isModalOpen && <Modal onClose={() => setIsModalOpen(false)} />}
     </>
   );
 };
