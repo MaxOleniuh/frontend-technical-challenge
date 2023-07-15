@@ -1,7 +1,7 @@
 {
+  "/images": "pages/images.html",
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/images": "pages/images.html",
   "/": "pages/index.html",
   "/predictions": "pages/predictions.html",
   "/_document": "pages/_document.js",
